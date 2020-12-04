@@ -9,14 +9,27 @@ class PolyTreeNode
     end
 
     def parent=(passed_node)
+        # @parent.children -= [self] if @parent != nil
         @parent = passed_node
+        return nil if @parent == nil
         @parent.children << self if !@parent.children.include?(self)
-        
-        # @children << @parent 
-        # node.children
 
     end
 
+    def add_child(child)
+        child.parent = self
+        @children << child if !@children.include?(child)
+    end
+
+    def remove_child(child)
+        child.parent = nil
+        # @children -= child
+        raise "Node is not a child" if !@children.include?(child)
+    end
+
+    def Searchable
+        
+    end
 
 
 end
