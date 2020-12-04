@@ -33,11 +33,13 @@ class PolyTreeNode
 
         self.children.each do |child|
             some_var = child.dfs(target)
-            return child if some_var != nil
+            return some_var if some_var != nil
         end
         return nil
 
     end
+
+
 
     def bfs(target)
         queue = [self]
