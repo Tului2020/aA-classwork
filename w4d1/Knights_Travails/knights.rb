@@ -3,7 +3,7 @@ require "byebug"
 
 class KnightPathFinder
 
-    @@all_moves = []
+    
 
     def self.create_board
         # creates and populates the board with elements as nodes
@@ -56,9 +56,8 @@ class KnightPathFinder
 
     def initialize(position)
         @board = KnightPathFinder.create_board
-        # @starting_pos = position
-        # @current_position = nil
-        @@all_moves << position
+        @all_moves = [position]
+
     end
 
 
@@ -66,54 +65,33 @@ class KnightPathFinder
 
 
 
-    def find_path(end_position)
+    def find_path(end_position, reset=true)
         # # must include Array to node connection when jumping
         # # Node.children contain arrays not objects 
         # # helper functions: find distance (end, start), add to all_moves
-
         # base case where we found path
-        return @@all_moves if end_position == @@all_moves[-1]
-
-        # @@all_moves[0] = starting position i.e [0, 1] (array)
-        current_position = @board[@@all_moves[-1][0]][@@all_moves[-1][1]]   # setting current position to object at the last position
+        return @all_moves if end_position == @all_moves[-1]
+        @all_moves = @all_moves[...1] if reset
+        # @all_moves[0] = starting position i.e [0, 1] (array)
+        current_position = @board[@all_moves[-1][0]][@all_moves[-1][1]]   # setting current position to object at the last position
         
-
-        # local_shortest_path = possible_moves.inject do |acc, ele|                 # 
-        #     acc_path = find_distance(acc, end_position)                        # distance for acc --> end_position
-        #     ele_path = find_distance(ele, end_position)                        # distance for ele --> end_position
-        #     if acc_path > ele_path
-        #         ele
-        #     else
-        #         acc
-        #     end
-        # end
-
         possible_moves = []
         possible_moves_distance = []
         
         current_position.children.each do |el|
+            # debugger
             dst = find_distance(el, end_position)
-            if dst != 1 && dst != 8 ** 0.5
+            if dst == 1 || dst == 8 ** 0.5
+                next
+            else
                 possible_moves << el
                 possible_moves_distance << dst
             end
         end
-        
-        # p current_position.value
-        # p possible_moves
-        # p possible_moves_distance
-        # debugger
 
         local_shortest_path = possible_moves[possible_moves_distance.index(possible_moves_distance.min)]
-        # return [possible_moves, possible_moves_distance]
-
-
-
-
-
         add_to_steps(local_shortest_path)
-        find_path(end_position)
-
+        find_path(end_position, false)
     end
 
     def find_distance(start, dest)
@@ -124,7 +102,7 @@ class KnightPathFinder
     end
 
     def add_to_steps(pos)
-        @@all_moves << pos
+        @all_moves << pos
     end
         
 
@@ -140,9 +118,10 @@ end
 # p board.find_path([6, 1])#each {|row| p row}
 
 kpf = KnightPathFinder.new([0, 0])
-p kpf.find_path([2, 1]) # => [[0, 0], [2, 1]]
-p kpf.find_path([3, 3]) # => [[0, 0], [2, 1], [3, 3]]
-
+p kpf.find_path([2, 1]).length == [[0, 0], [2, 1]].length
+p kpf.find_path([3, 3]).length == [[0, 0], [2, 1], [3, 3]].length
+p kpf.find_path([7, 6]).length == [[0, 0], [1, 2], [2, 4], [3, 6], [5, 5], [7, 6]].length
+p kpf.find_path([6, 2]).length == [[0, 0], [1, 2], [2, 0], [4, 1], [6, 2]].length
 
 
 # board = KnightPathFinder.create_board
