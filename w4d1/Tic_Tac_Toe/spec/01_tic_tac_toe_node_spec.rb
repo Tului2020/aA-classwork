@@ -3,6 +3,7 @@
 require 'rspec'
 require 'tic_tac_toe'
 require 'tic_tac_toe_node'
+# require 'board'
 
 describe TicTacToeNode do
   let(:empty_board_node) do

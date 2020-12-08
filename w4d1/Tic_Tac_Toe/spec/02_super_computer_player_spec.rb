@@ -1,6 +1,7 @@
 require "rspec"
 require "tic_tac_toe"
 require "super_computer_player"
+# require "board"
 
 describe SuperComputerPlayer do
   subject { SuperComputerPlayer.new }
