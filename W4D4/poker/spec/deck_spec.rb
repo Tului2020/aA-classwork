@@ -8,7 +8,7 @@ describe Deck do
 
   describe "#initialize" do
     it "should create a variable called cards that is an empty array" do
-       expect(generic_deck.cards.length).to eq(52)
+       expect(generic_deck.cards.length).to eq(52)8
     end
   end
 
