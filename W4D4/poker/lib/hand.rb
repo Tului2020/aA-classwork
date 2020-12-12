@@ -37,8 +37,11 @@
 class Hand
 
     def self.check
-        4
+        next
     end
+
+    
+
 
 end
 
