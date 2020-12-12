@@ -1,4 +1,4 @@
-require_relative "card"
+require_relative 'card'
 
 
 class Deck
@@ -15,8 +15,8 @@ class Deck
   end
 end
 
-d = Deck.new
-d.add_shuffled
+# d = Deck.new
+# d.add_shuffled
 
-p d.cards.uniq.length
+# p d.cards.uniq.length
 

@@ -33,17 +33,96 @@
 # all five cards of the same suit or consecutive in rank. When more than one player has no pair, 
 # the hands are rated by the highest card each hand contains, so that an ace-high hand beats a 
 # king-high hand, and so on.
+require_relative 'card'
+
 
 class Hand
 
+    
+
+    def valid_values
+        Card.valid_values
+    end
+
+    def initialize(cards)
+        @cards = cards
+    end
+
     def self.check
-        next
+    end
+
+
+    def ranker(value)
+        valid_values.index(value)
+    end
+
+
+    # 10
+    def high_card?
+        values = @cards.map { |el| el.value}        # contains values of all cards in hand
+        values.inject(:two) do |acc, el|            # figures out the highest ranking value
+            acc_rank = ranker(acc)
+            el_rank = ranker(el)
+            if acc_rank < el_rank
+                el
+            else
+                acc
+            end
+        end
+    end
+
+    # 9
+    def straight?
+        values = @cards.map { |el| ranker(el.value)}
+    end
+
+    # 8 
+    def one_pair?
+    end
+
+    # 7
+    def two_pair?
+    end
+
+    # 6
+    def three_kind?
+    end
+
+    # 5
+    def flush?
+    end
+
+    # 4 
+    def full_house?
+    end
+
+
+    # 3
+    def four_kind?
+    end
+
+
+    # 2
+    def straight_flush?
+    end
+
+
+    # 1
+    def royal_flush?
     end
 
     
 
 
+    # 6, 7, 8, 9, 10 => 1, 1, 1, 1
+
+
 end
 
-p Hand.check
+
+cards = [Card.new(:S, :seven), Card.new(:H, :eight), Card.new(:S, :nine), Card.new(:H, :ten), Card.new(:S, :J), Card.new(:H, :Q)]
+
+h = Hand.new(cards)
+p h.straight?
+
 

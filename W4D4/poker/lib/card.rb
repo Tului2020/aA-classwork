@@ -2,7 +2,7 @@ class Card
   attr_reader :value, :suit, :visible
 
   @@valid_suits = [:S, :H, :D, :C]
-  @@valid_values = [:A, :two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :J, :Q, :K]
+  @@valid_values = [:two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :J, :Q, :K, :A]
 
   def self.valid_suits
     @@valid_suits
@@ -28,5 +28,5 @@ class Card
 
 end
 
-# p Card.valid_suits
+# p Card.valid_values.index(:K)
 
