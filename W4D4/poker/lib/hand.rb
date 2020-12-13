@@ -38,7 +38,7 @@ require_relative 'card'
 
 class Hand
 
-    
+    attr_reader :cards
 
     def valid_values
         Card.valid_values
@@ -73,37 +73,69 @@ class Hand
 
     # 9
     def straight?
-        values = @cards.map { |el| ranker(el.value)}
+        values = @cards.map { |el| ranker(el.value)}.sort.uniq
+        consecutive(values)
+        # may need to return highest card to see who the winner is if all parties have straights
     end
 
     # 8 
     def one_pair?
+        hsh = Hash.new(0)
+        @cards.each { |card| hsh[card.value] += 1}
+        hsh.values.count { |el| el >= 2} >= 1
     end
 
     # 7
     def two_pair?
+        hsh = Hash.new(0)
+        @cards.each { |card| hsh[card.value] += 1}
+        hsh.values.count { |el| el >= 2} == 2
     end
 
     # 6
     def three_kind?
+        hsh = Hash.new(0)
+        @cards.each { |card| hsh[card.value] += 1}
+        hsh.values.count { |el| el >= 3} == 1
     end
 
     # 5
     def flush?
+        hsh = Hash.new(0)
+        @cards.each { |card| hsh[card.suit] += 1}
+        hsh.values.any? { |el| el > 4}
     end
 
     # 4 
     def full_house?
+        two_pair? && three_kind?
     end
 
 
     # 3
     def four_kind?
+        hsh = Hash.new(0)
+        @cards.each { |card| hsh[card.value] += 1}
+        hsh.values.count { |el| el >= 4} == 1
     end
 
 
     # 2
+    # def straight?
+    #     values = @cards.map { |el| ranker(el.value)}.sort.uniq
+    #     consecutive?(values)
+    #     # may need to return highest card to see who the winner is if all parties have straights
+    # end
+
+    # def flush?
+    #     hsh = Hash.new(0)
+    #     @cards.each { |card| hsh[card.suit] += 1}
+    #     hsh.values.any? { |el| el > 4}
+    # end
+
+    
     def straight_flush?
+        
     end
 
 
@@ -111,18 +143,43 @@ class Hand
     def royal_flush?
     end
 
-    
+    # private
+    def print_cards
+        @cards.each { |card| print card.val_suit + " "}
+        puts
+    end
 
+    # private
+    # def consecutive(arr, consec=5)
+    #     count = []
+    #     (1...arr.length).each do |idx|
+    #         (arr[idx] - 1 == arr[idx - 1])? (count += 1) : (count = 0)
+    #         return true if count >= consec - 1
+    #     end
+    #     false
+    # end
 
-    # 6, 7, 8, 9, 10 => 1, 1, 1, 1
-
+    def consecutive
+        consec_cards = []
+        card_vals = @cards.map { |card| [card.value, card.suit]}
+    end
 
 end
 
 
-cards = [Card.new(:S, :seven), Card.new(:H, :eight), Card.new(:S, :nine), Card.new(:H, :ten), Card.new(:S, :J), Card.new(:H, :Q)]
+cards = [Card.new(:H, :seven), Card.new(:H, :eight), Card.new(:S, :nine), Card.new(:H, :ten), 
+    Card.new(:S, :J), Card.new(:H, :J), Card.new(:H, :nine), Card.new(:C, :nine), Card.new(:S, :nine)]
 
 h = Hand.new(cards)
-p h.straight?
+# print "cards:         "
+# h.print_cards
 
+p h.consecutive
 
+# puts "one pair:      " + h.one_pair?.to_s
+# puts "straight:      " + h.straight?.to_s
+# puts "two pair:      " + h.two_pair?.to_s
+# puts "three kind:    " + h.three_kind?.to_s
+# puts "flush:         " + h.flush?.to_s
+# puts "full house:    " + h.full_house?.to_s
+# puts "four kind:     " + h.four_kind?.to_s

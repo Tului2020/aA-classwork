@@ -1,8 +1,20 @@
 class Card
   attr_reader :value, :suit, :visible
 
-  @@valid_suits = [:S, :H, :D, :C]
-  @@valid_values = [:two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :J, :Q, :K, :A]
+  # :S = Spade, :H = Heart, :D = Diamond, :C = Club
+  @@valid_suits = [:S, :H, :D, :C].freeze
+  @@valid_values = [:two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :J, :Q, :K, :A].freeze
+  @@suits = [ "\u2660", "\u2665", "\u2666", "\u2663"].freeze
+  @@values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+
+  def suits
+    @@suits
+  end
+
+  def values
+    @@values
+  end
+
 
   def self.valid_suits
     @@valid_suits
@@ -11,7 +23,6 @@ class Card
   def self.valid_values
     @@valid_values
   end
-
 
   def initialize(suit, value)
     raise "invalid card value" unless @@valid_values.include?(value)
@@ -22,6 +33,14 @@ class Card
     @visible = false
   end
 
+  def val_suit
+    suit_idx = @@valid_suits.index(@suit)
+    value_idx = @@valid_values.index(@value)
+    @@suits[suit_idx] + @@values[value_idx]
+  end
+
+
+
   def show
     @visible = true
   end
@@ -29,4 +48,4 @@ class Card
 end
 
 # p Card.valid_values.index(:K)
-
+# p Card.val_suit_converter(:S, :ten)
