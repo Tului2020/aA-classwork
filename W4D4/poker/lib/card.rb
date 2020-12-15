@@ -15,6 +15,7 @@ class Card
     @@values
   end
 
+#dasjkljlk
 
   def self.valid_suits
     @@valid_suits
