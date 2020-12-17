@@ -23,17 +23,53 @@
 require_relative './sqlzoo.rb'
 
 
-def films_and_stars_from_sixty_two
-  # List the title and leading star of every 1962 film.
+def andrews_films_and_leads
+  # List the film title and the leading actor for all of the films 'Julie
+  # Andrews' played in.
   execute(<<-SQL)
 
-  (select title
-  from movies
-  where movies.yr = 1962)
+  select *
+  from castings
+  where actor_id =
+  (select id
+  from actors
+  where name = 'Julie Andrews')
   SQL
 end
 
-films_and_stars_from_sixty_two.each{|el| p el}
+andrews_films_and_leads.each{|el| p el}
+
+
+def travoltas_busiest_years
+  # Which were the busiest years for 'John Travolta'? Show the year and the
+  # number of movies he made for any year in which he made at least 2 movies.
+  execute(<<-SQL)
+  select *
+  from
+  (select movies.yr as movie_year, count(*) as movie_count
+  from actors inner join castings on castings.actor_id = actors.id
+  inner join movies on movies.id = castings.movie_id
+  where actors.name = 'John Travolta'
+  group by movies.yr) as t
+  where t.movie_count > 1
+  SQL
+end
+
+
+
+
+def films_and_stars_from_sixty_two
+  # List the title and leading star of every 1962 film.
+  execute(<<-SQL)
+  select movies.title, actors.name
+  from movies inner join castings on movies.id = castings.movie_id
+  inner join actors on castings.actor_id = actors.id
+  where movies.yr = 1962 and castings.ord = 1
+  SQL
+
+end
+
+# 
 
 
 def ford_supporting_films
@@ -52,10 +88,6 @@ def ford_supporting_films
   where name = 'Harrison Ford'))
   SQL
 end
-
-# ford_supporting_films.each{|el| p el}
-
-
 
 
 
@@ -96,20 +128,6 @@ end
 
 
 
-
-def travoltas_busiest_years
-  # Which were the busiest years for 'John Travolta'? Show the year and the
-  # number of movies he made for any year in which he made at least 2 movies.
-  execute(<<-SQL)
-  SQL
-end
-
-def andrews_films_and_leads
-  # List the film title and the leading actor for all of the films 'Julie
-  # Andrews' played in.
-  execute(<<-SQL)
-  SQL
-end
 
 def prolific_actors
   # Obtain a list in alphabetical order of actors who've had at least 15
