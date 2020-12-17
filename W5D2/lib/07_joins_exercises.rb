@@ -22,6 +22,43 @@
 
 require_relative './sqlzoo.rb'
 
+
+def films_and_stars_from_sixty_two
+  # List the title and leading star of every 1962 film.
+  execute(<<-SQL)
+
+  (select title
+  from movies
+  where movies.yr = 1962)
+  SQL
+end
+
+films_and_stars_from_sixty_two.each{|el| p el}
+
+
+def ford_supporting_films
+  # List the films where 'Harrison Ford' has appeared - but not in the star
+  # role. [Note: the ord field of casting gives the position of the actor. If
+  # ord=1 then this actor is in the starring role]
+  execute(<<-SQL)
+  select title
+  from movies
+  where id in 
+  (select movie_id
+  from castings
+  where ord != 1 and actor_id = 
+  (select id
+  from actors
+  where name = 'Harrison Ford'))
+  SQL
+end
+
+# ford_supporting_films.each{|el| p el}
+
+
+
+
+
 def example_join
   execute(<<-SQL)
     SELECT
@@ -39,23 +76,26 @@ end
 
 def ford_films
   # List the films in which 'Harrison Ford' has appeared.
+  # select id
+  # from actors
+  # where name = 'Harrison Ford'
   execute(<<-SQL)
+  select title
+  from movies
+  where id in (
+  select movie_id
+  from castings
+  where actor_id = 
+  (select id
+  from actors
+  where name = 'Harrison Ford'))
   SQL
 end
+# ford_films.each{|el| p el}
 
-def ford_supporting_films
-  # List the films where 'Harrison Ford' has appeared - but not in the star
-  # role. [Note: the ord field of casting gives the position of the actor. If
-  # ord=1 then this actor is in the starring role]
-  execute(<<-SQL)
-  SQL
-end
 
-def films_and_stars_from_sixty_two
-  # List the title and leading star of every 1962 film.
-  execute(<<-SQL)
-  SQL
-end
+
+
 
 def travoltas_busiest_years
   # Which were the busiest years for 'John Travolta'? Show the year and the
