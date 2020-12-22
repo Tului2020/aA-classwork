@@ -19,6 +19,20 @@
 #  votes       :integer          not null
 #  director_id :integer          not null
 
+def vanity_projects
+  # List the title of all movies in which the director also appeared
+  # as the starring actor.
+  # Show the movie id and title and director's name.
+
+  # Note: Directors appear in the 'actors' table.
+  Movie
+  .select(:id, :title)
+  .joins(:actors)
+  .where("movies.director_id = actors.id")
+  .where("ord=1")
+
+
+
 
 def eighties_b_movies
   # List all the movies from 1980-1989 with scores falling between
@@ -61,18 +75,6 @@ def cast_list(title)
     .order("ord")
 
 end
-
-def vanity_projects
-  # List the title of all movies in which the director also appeared
-  # as the starring actor.
-  # Show the movie id and title and director's name.
-
-  # Note: Directors appear in the 'actors' table.
-  Movie 
-    .select('movies.id, movies.title, actors.name')
-    .joins(:directed_movies)
-    .where('castings.ord = 1')
-
 
 
 end
