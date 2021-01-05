@@ -6,13 +6,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if User.find_by_credentials(user_params[:username], user_params[:password])
-      user = User.find_by(username: username)
+    check = User.find_by_credentials(user_params[:username], user_params[:password])
+    if check
+      user = User.find_by(username: user_params[:username])
+      session[:session_token] = user.reset_session_token!
+      redirect_to cats_url
     else
-      
+      flash.now[:errors] =  "User not found"
+      render :new
+
     end
-    session[:session_token] = user.reset_session_token!
-    redirect_to cats_url
+
   end
 
 

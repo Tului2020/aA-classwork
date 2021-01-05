@@ -7,10 +7,6 @@ class User < ApplicationRecord
 
   attr_reader :password
 
-  # def initialize
-  #   super
-  #   ensure_session_token
-  # end
 
 
   def ensure_session_token
@@ -33,9 +29,7 @@ class User < ApplicationRecord
   end
 
   def self.find_by_credentials(username, password)
-    # find user form table via username
     user = User.find_by(username: username)
-    # then see if password =  password
     !!user && user.is_password?(password)
   end
 
