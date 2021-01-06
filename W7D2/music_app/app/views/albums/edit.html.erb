@@ -1,12 +1,33 @@
-<form action="<%= band_url(@band) %>" method="POST">
+<form action="<%= albums_url %>" method="POST">
   <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
-  <input type="hidden" name="_method" value="PATCH">
 
-  <label class="text_input">Band Name: 
-    <input type="text" name="band[name]" value="<%=@band.name%>">
+
+  <label class="text_input">Album Title: 
+    <input type="text" name="album[title]">
   </label>
 
-  <input class="submit" type="submit" value="Update Band!">
+  <label class="text_input">Release Year: 
+    <input type="text" name="album[year]">
+  </label>
+
+  <label class="text_input">Album Artist: 
+    <select name="album[band_id]">
+    <% Band.all.each do |band| %>
+      <option value="<%= band.id %>"> <%= band.name%></option>
+    <% end %>
+    </select>
+  </label>
+
+  <label class="text_input">Record Type:
+    <input type="radio" name="album[record_type]" value="Live">
+    <label>Live</label>
+    <input type="radio" name="album[record_type]" value="Studio">
+    <label>Studio</label>
+  </label>
+
+  <br>
+
+  <input class="submit" type="submit" value="Create Album!">
 
   <%= render "shared/error" %>
 
