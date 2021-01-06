@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap' %>
+  </head>
+
+  <body>
+    
+    <div id="navigation">
+      <% if logged_in? %>
+        <form action="<%= session_url %>" method="POST">
+          <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Sign Out!">
+        </form>
+      <% else %>
+        <a class="session_links" href=<%= new_user_url %>>Sign up</a>
+        <a class="session_links" href=<%= new_session_url %>>Log in</a>
+      <% end %>
+    </div>
+    <h1 id="application_title">Storify!</h1>
+    <%= yield %>
+  </body>
+</html>
