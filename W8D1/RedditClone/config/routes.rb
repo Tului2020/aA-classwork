@@ -1,0 +1,12 @@
+Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :users
+  resource :session, only: [:new, :create, :destroy]
+  # resources :posts, only: [:show]
+
+
+  resources :subs do
+    resources :posts, except: :index
+  end
+  
+end

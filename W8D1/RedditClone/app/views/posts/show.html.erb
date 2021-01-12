@@ -1,0 +1,7 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+
+<% if author?(@post) %>
+    <a href="<%= edit_sub_post_url(@post.sub_id, @post) %>">Edit Post</a>
+<% end %>
+
