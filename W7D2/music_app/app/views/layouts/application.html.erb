@@ -13,6 +13,8 @@
   <body>
     
     <div id="navigation">
+      <a  class="session_links"  href="<%= new_band_url %>">Add a band</a>
+      <a  class="session_links"  href="<%= bands_url %>">Bands</a>
       <% if logged_in? %>
         <form action="<%= session_url %>" method="POST">
           <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>

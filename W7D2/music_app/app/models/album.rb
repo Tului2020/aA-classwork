@@ -16,7 +16,8 @@ class Album < ApplicationRecord
 
   belongs_to :band,
     foreign_key: :band_id,
-    class_name: :Band
+    class_name: :Band,
+    dependent: :destroy
   
     # belongs_to :object, class_name: "object", foreign_key: "object_id"
 

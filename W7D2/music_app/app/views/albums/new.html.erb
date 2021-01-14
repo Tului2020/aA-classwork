@@ -10,13 +10,7 @@
     <input type="text" name="album[year]">
   </label>
 
-  <label class="text_input">Album Artist: 
-    <select name="album[band_id]">
-    <% Band.all.each do |band| %>
-      <option value="<%= band.id %>"> <%= band.name%></option>
-    <% end %>
-    </select>
-  </label>
+  <input type="hidden" name="album[band_id]" value=<%= params[:band_id] %>>
 
   <label class="text_input">Record Type:
     <input type="radio" name="album[record_type]" value="Live">

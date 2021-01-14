@@ -3,31 +3,31 @@
 
 
   <label class="text_input">Album Title: 
-    <input type="text" name="album[title]">
+    <input type="text" name="album[title]" value="<%=  @album.title%>">
   </label>
 
   <label class="text_input">Release Year: 
-    <input type="text" name="album[year]">
+    <input type="text" name="album[year]" value="<%=  @album.year%>">
   </label>
 
   <label class="text_input">Album Artist: 
     <select name="album[band_id]">
     <% Band.all.each do |band| %>
-      <option value="<%= band.id %>"> <%= band.name%></option>
+      <option <%= "selected" if band.id == @album.band_id %> value="<%= band.id %>"> <%= band.name%></option>
     <% end %>
     </select>
   </label>
 
   <label class="text_input">Record Type:
-    <input type="radio" name="album[record_type]" value="Live">
+    <input <%= "checked" if @album.record_type == "Live" %> type="radio" name="album[record_type]" value="Live">
     <label>Live</label>
-    <input type="radio" name="album[record_type]" value="Studio">
+    <input <%= "checked" if @album.record_type == "Studio" %> type="radio" name="album[record_type]" value="Studio">
     <label>Studio</label>
   </label>
 
   <br>
 
-  <input class="submit" type="submit" value="Create Album!">
+  <input class="submit" type="submit" value="Update Album!">
 
   <%= render "shared/error" %>
 

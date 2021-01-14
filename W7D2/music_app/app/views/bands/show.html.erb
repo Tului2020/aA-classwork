@@ -1,1 +1,9 @@
 <%= render "band", band: @band %>
+<% albums = @band.albums %>
+
+<ul>
+  <h2><%= "Albums" unless albums == []%></h2>
+  <% albums.each do |album| %>
+    <li><a href="<%= album_url(album) %>"><%= album.title %></a></li>
+  <% end%>
+</ul>
