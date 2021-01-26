@@ -16,27 +16,28 @@ class Clock extends React.Component {
     this.tick();
   }
 
-  render() {
-
-  }
-
   tick() {
-    window.setInterval( () => {
-      this.second += 1;
-
-
-      if (this.second === 60){
-        this.second = 0;
-        this.minute += 1;
-      } 
-      if (this.minute === 60){
-        this.minute = 0;
-        this.hour += 1;
-      } 
-      if (this.hour === 24){
-        this.hour = 0;
-      } 
-    }, 1000)
+    this.setState(state => {
+      time: new Date()
+    })
   } 
 
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+   componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+
+  render() {
+    return (
+      <div>
+        Time: {this.state.time}
+      </div>
+    )
+  }
 }
+
+export default Clock

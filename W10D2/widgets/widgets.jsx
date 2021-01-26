@@ -1,15 +1,20 @@
 import React from "react" 
 import ReactDOM from "react-dom" 
+import Clock from "./frontend/clock"
 
 function Root() {
-  return (<h1>hello</h1>)
+  return (
+    <div>
+      <Clock />
+    </div>
+  )
 }
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
   const reactRoot = document.getElementById('main');
   ReactDOM.render(Root(), reactRoot);
-  // ReactDOM.render(<Widget />, reactRoot)
+
 });
 
 
