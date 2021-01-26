@@ -14,7 +14,6 @@ function Root() {
 document.addEventListener('DOMContentLoaded', ()=> {
   const reactRoot = document.getElementById('main');
   ReactDOM.render(Root(), reactRoot);
-
 });
 
 

@@ -139,6 +139,7 @@ var Clock = /*#__PURE__*/function (_React$Component) {
     // this.minute = this.time.getMinutes();
     // this.second = this.time.getSeconds();
     // console.log([this.hour, this.minute, this.second]);
+    // this.componentDidMount();
 
     _this.tick();
 
@@ -148,9 +149,9 @@ var Clock = /*#__PURE__*/function (_React$Component) {
   _createClass(Clock, [{
     key: "tick",
     value: function tick() {
-      this.setState(function (state) {
-        time: new Date();
-      });
+      this.setState({
+        time: new Date()
+      }); // this.state = { time: new Date()};
     }
   }, {
     key: "componentDidMount",
@@ -169,7 +170,7 @@ var Clock = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Time: ", this.state.time);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Time: ", this.state.time.getHours(), ":", this.state.time.getMinutes(), ":", this.state.time.getSeconds(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Date: ", this.state.time.toDateString());
     }
   }]);
 
