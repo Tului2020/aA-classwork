@@ -1,6 +1,8 @@
 .tile {
   border-style: outset;
   width: 15px;
+  height: 15px;
+  font-size: 10px;
   /* position: relative; */
   /* left: 300px; */
   /* display: grid; 

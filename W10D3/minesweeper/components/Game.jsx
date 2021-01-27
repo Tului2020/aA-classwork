@@ -12,9 +12,27 @@ class Game extends React.Component {
   }
 
   updateGame(tile, alt) {
-    console.log(alt);
-    console.log("calling updateGame");
+    if (alt){
+      tile.toggleFlag();
+    } else{
+      tile.explore()
+    }
+    this.setState({board: this.state.board})
+    console.log(this.gameover())
   }
+
+
+  gameover(){
+    if (this.state.board.lost()){
+      return 'lost'
+    } else if (this.state.board.won()) {
+      return 'won'
+    } else {
+      return 'play'
+    }
+  }
+
+
 
   render() {
     return <Board board={this.state.board} updateGame={this.updateGame} />

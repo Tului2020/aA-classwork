@@ -229,8 +229,27 @@ var Game = /*#__PURE__*/function (_React$Component) {
   _createClass(Game, [{
     key: "updateGame",
     value: function updateGame(tile, alt) {
-      console.log(alt);
-      console.log("calling updateGame");
+      if (alt) {
+        tile.toggleFlag();
+      } else {
+        tile.explore();
+      }
+
+      this.setState({
+        board: this.state.board
+      });
+      console.log(this.gameover());
+    }
+  }, {
+    key: "gameover",
+    value: function gameover() {
+      if (this.state.board.lost()) {
+        return 'lost';
+      } else if (this.state.board.won()) {
+        return 'won';
+      } else {
+        return 'play';
+      }
     }
   }, {
     key: "render",
@@ -313,9 +332,17 @@ var Tile = /*#__PURE__*/function (_React$Component) {
           }, "\uD83D\uDCA3");
         }
 
+        var bombs;
+
+        if (this.props.tile.adjacentBombCount() === 0) {
+          bombs = '';
+        } else {
+          bombs = this.props.tile.adjacentBombCount();
+        }
+
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "tile-explored"
-        }, this.props.tile.adjacentBombCount());
+        }, bombs);
       } else {
         // debugger
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

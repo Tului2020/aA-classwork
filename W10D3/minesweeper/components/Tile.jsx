@@ -19,9 +19,15 @@ class Tile extends React.Component {
         )
       } 
 
+      let bombs;
+      if (this.props.tile.adjacentBombCount() === 0) {
+        bombs = ''
+      } else {
+        bombs = this.props.tile.adjacentBombCount()
+      }
       return (
         <div className="tile-explored">
-          {this.props.tile.adjacentBombCount()}
+          { bombs}
         </div>
       )
 
