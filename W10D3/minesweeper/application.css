@@ -1,0 +1,12 @@
+.tile {
+  border-style: outset;
+  width: 15px;
+  position: relative;
+  left: 300px;
+  /* display: grid; 
+  grid-template-columns: auto auto auto; */
+}
+
+.tile-explored, .tile-bombed, .tile-flagged {
+  border-style: inset;
+}
