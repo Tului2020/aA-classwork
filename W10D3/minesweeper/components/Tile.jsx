@@ -3,7 +3,10 @@ import * as Minesweeper from './../minesweeper'
 
 class Tile extends React.Component {
   render() {
-    return "T";
+    return (
+    <div>
+        T
+    </div>) 
   }
 }
 

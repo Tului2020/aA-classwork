@@ -143,20 +143,16 @@ var Board = /*#__PURE__*/function (_React$Component) {
 
       // debugger
       var grid = this.props.board.grid.map(function (object, index) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, object.map(function (tileObject, index2) {
-          /*#__PURE__*/
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            key: (index, index2)
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index
+        }, object.map(function (tileObject, index2) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: index2
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tile__WEBPACK_IMPORTED_MODULE_2__["default"], {
             tile: tileObject,
             updateGame: _this.props.updateGame
           }));
         }));
-        /*for(let i = 0; i < grid.length; i++) {
-            for(let j = 0; j < grid[0].length; j++) {
-              grid[i][j] = <title/>
-            }
-        }*/
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, grid);
     }
@@ -297,7 +293,7 @@ var Tile = /*#__PURE__*/function (_React$Component) {
   _createClass(Tile, [{
     key: "render",
     value: function render() {
-      return "T";
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "T");
     }
   }]);
 
