@@ -220,7 +220,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__["Board"](3, 2)
+      board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__["Board"](9, 2)
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
     return _this;
@@ -228,7 +228,10 @@ var Game = /*#__PURE__*/function (_React$Component) {
 
   _createClass(Game, [{
     key: "updateGame",
-    value: function updateGame() {}
+    value: function updateGame(tile, alt) {
+      console.log(alt);
+      console.log("calling updateGame");
+    }
   }, {
     key: "render",
     value: function render() {
@@ -297,6 +300,8 @@ var Tile = /*#__PURE__*/function (_React$Component) {
   _createClass(Tile, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       if (this.props.tile.flagged) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "tile-flagged"
@@ -312,8 +317,12 @@ var Tile = /*#__PURE__*/function (_React$Component) {
           className: "tile-explored"
         }, this.props.tile.adjacentBombCount());
       } else {
+        // debugger
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "tile-hidden"
+          className: "tile-hidden",
+          onClick: function onClick(e) {
+            return _this.props.updateGame(_this.props.tile, e.altKey);
+          }
         }, "H");
       } // debugger
       // return (

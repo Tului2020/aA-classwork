@@ -1,12 +1,19 @@
 .tile {
   border-style: outset;
   width: 15px;
-  position: relative;
-  left: 300px;
+  /* position: relative; */
+  /* left: 300px; */
   /* display: grid; 
   grid-template-columns: auto auto auto; */
+  /* border:  1px solid pink; */
 }
 
 .tile-explored, .tile-bombed, .tile-flagged {
   border-style: inset;
+}
+
+.row {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
 }

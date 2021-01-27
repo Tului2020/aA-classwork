@@ -2,6 +2,7 @@ import React from 'react'
 import * as Minesweeper from './../minesweeper'
 
 class Tile extends React.Component {
+
   render() {
     if (this.props.tile.flagged) {
       return (
@@ -16,7 +17,7 @@ class Tile extends React.Component {
             { '\uD83D\uDCA3'}
           </div>
         )
-      }
+      } 
 
       return (
         <div className="tile-explored">
@@ -25,8 +26,10 @@ class Tile extends React.Component {
       )
 
     } else {
+      // debugger
       return (
-        <div className="tile-hidden">
+        <div className="tile-hidden"
+          onClick={(e) => this.props.updateGame(this.props.tile, e.altKey)}>
           H
         </div>
       )
