@@ -6,7 +6,8 @@ class Tile extends React.Component {
   render() {
     if (this.props.tile.flagged) {
       return (
-        <div className="tile-flagged">
+        <div className="tile-flagged"
+        onClick={(e) => this.props.updateGame(this.props.tile, e.altKey)}>
           {"\u2691"}
         </div>
       )

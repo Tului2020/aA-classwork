@@ -337,7 +337,10 @@ var Tile = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.tile.flagged) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "tile-flagged"
+          className: "tile-flagged",
+          onClick: function onClick(e) {
+            return _this.props.updateGame(_this.props.tile, e.altKey);
+          }
         }, "\u2691");
       } else if (this.props.tile.explored) {
         if (this.props.tile.bombed) {
