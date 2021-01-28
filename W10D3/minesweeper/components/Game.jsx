@@ -9,6 +9,8 @@ class Game extends React.Component {
     this.state = {board: new Minesweeper.Board(9, 2)};
 
     this.updateGame = this.updateGame.bind(this);
+    this.gameOver = this.gameOver.bind(this);
+    this.restartGame = this.restartGame.bind(this);
   }
 
   updateGame(tile, alt) {
@@ -18,11 +20,11 @@ class Game extends React.Component {
       tile.explore()
     }
     this.setState({board: this.state.board})
-    console.log(this.gameover())
+    console.log(this.gameOver())
   }
 
 
-  gameover(){
+  gameOver(){
     if (this.state.board.lost()){
       return 'lost'
     } else if (this.state.board.won()) {
@@ -32,9 +34,16 @@ class Game extends React.Component {
     }
   }
 
-
+  restartGame() {
+    console.log("restartGame")
+    this.setState({board: new Minesweeper.Board(this.state.board.gridSize, this.state.board.numBombs)})
+  }
 
   render() {
+    
+    if (this.gameOver() === 'lost' || this.gameOver() === 'won') {
+      this.restartGame();
+    }
     return <Board board={this.state.board} updateGame={this.updateGame} />
     // return (new Board(this.state.board, this.updateGame))
   }

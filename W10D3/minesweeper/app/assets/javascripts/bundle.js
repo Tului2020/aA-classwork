@@ -223,6 +223,8 @@ var Game = /*#__PURE__*/function (_React$Component) {
       board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__["Board"](9, 2)
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
+    _this.gameOver = _this.gameOver.bind(_assertThisInitialized(_this));
+    _this.restartGame = _this.restartGame.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -238,11 +240,11 @@ var Game = /*#__PURE__*/function (_React$Component) {
       this.setState({
         board: this.state.board
       });
-      console.log(this.gameover());
+      console.log(this.gameOver());
     }
   }, {
-    key: "gameover",
-    value: function gameover() {
+    key: "gameOver",
+    value: function gameOver() {
       if (this.state.board.lost()) {
         return 'lost';
       } else if (this.state.board.won()) {
@@ -252,8 +254,20 @@ var Game = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "restartGame",
+    value: function restartGame() {
+      console.log("restartGame");
+      this.setState({
+        board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__["Board"](this.state.board.gridSize, this.state.board.numBombs)
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      if (this.gameOver() === 'lost' || this.gameOver() === 'won') {
+        this.restartGame();
+      }
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board__WEBPACK_IMPORTED_MODULE_2__["default"], {
         board: this.state.board,
         updateGame: this.updateGame
